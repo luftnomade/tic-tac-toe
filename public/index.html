@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+
+  <style>
+    #matchfield {
+      margin-top: 2em;
+    }
+
+    .player {
+      max-width: 100%;
+      height: 90%;
+      margin: 5% auto 5% auto;
+      display: none;
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      backface-visibility: hidden;
+    }
+
+    .modal-player {
+      display: none
+    }
+
+    .active {
+      -webkit-transform: rotateY(180deg);
+      transform: rotateY(180deg);
+      transform-style: preserve-3d;
+    }
+
+    .field {
+      height: 8em;
+      border: 1px solid rgba(86, 61, 124, .2);
+      margin: 5% 0 5% 0;
+      -webkit-transition: -webkit-transform .8s ease-in-out;
+      transition: transform .8s ease-in-out;
+    }
+
+    #start-game-alert {
+      position: fixed;
+    }
+
+    #landingpage {
+      margin-top: 40px;
+    }
+
+    #waitinglist {
+      margin-top: 40px;
+      display: none;
+    }
+
+    #matchfield {
+      display: none;
+    }
+  </style>
+
+  <title>Tic Tac Toe</title>
+</head>
+
+<body>
+  <div id="game-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+        </div>
+        <div class="modal-body">
+          <img class="modal-player player-1 image-won" src="img/player1_won.png">
+          <img class="modal-player player-1 image-lost" src="img/player1_lost.png">
+          <img class="modal-player player-1 image-1" src="img/player1_1.png">
+          <img class="modal-player player-1 image-2" src="img/player1_2.png">
+          <img class="modal-player player-1 image-3" src="img/player1_3.png">
+          <img class="modal-player player-1 image-4" src="img/player1_4.png">
+          <img class="modal-player player-2 image-1" src="img/player2_1.png">
+          <img class="modal-player player-2 image-2" src="img/player2_2.png">
+          <img class="modal-player player-2 image-3" src="img/player2_3.png">
+          <img class="modal-player player-2 image-4" src="img/player2_4.png">
+          <img class="modal-player player-2 image-won" src="img/player2_won.png">
+          <img class="modal-player player-2 image-lost" src="img/player2_lost.png">
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="state start" id="landingpage">
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+        <h1>Welcome to Tic Tac Toe</h1>
+      </div>
+      <div class="row align-items-center justify-content-center">
+        <button id="start-game" type="button" class="btn btn-primary btn-lg">Start game</button>
+      </div>
+    </div>
+  </div>
+  <div class="state waiting" id="waitinglist">
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+        <h1>Waitingroom</h1>
+      </div>
+      <div class="row align-items-center justify-content-center">
+        <p>Waiting for other players</p>
+      </div>
+    </div>
+  </div>
+  <div class="state playing" id="matchfield">
+    <div class="container">
+      <div class="row align-items-start justify-content-center">
+        <div class="col-3">
+          <div class="field" id="0">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="field" id="1">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="field" id="2">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center justify-content-center">
+        <div class="col-3">
+          <div class="field" id="3">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="field" id="4">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="field" id="5">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-end justify-content-center">
+        <div class="col-3">
+          <div class="field" id="6">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="field" id="7">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="field" id="8">
+            <img class="player player-1 image-1" src="img/player1_1.png">
+            <img class="player player-1 image-2" src="img/player1_2.png">
+            <img class="player player-1 image-3" src="img/player1_3.png">
+            <img class="player player-1 image-4" src="img/player1_4.png">
+            <img class="player player-2 image-1" src="img/player2_1.png">
+            <img class="player player-2 image-2" src="img/player2_2.png">
+            <img class="player player-2 image-3" src="img/player2_3.png">
+            <img class="player player-2 image-4" src="img/player2_4.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossoriginplayer1_1="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      var socket = io();
+
+      $('#start-game').click(function () {
+        socket.emit('joinWaitingList');
+      });
+
+      $('.field').click(function () {
+        socket.emit('move', $(this).attr('id'));
+        return false;
+      });
+
+      changeState = function (state) {
+        $(".state").each(function () {
+          $(this).hasClass(state) ? $(this).show() : $(this).hide();
+        });
+      }
+
+      socket.on('changeState', function (state) {
+        $('#game-modal').modal('hide');
+        changeState(state);
+      });
+
+      socket.on('startGame', function (data) {
+        $(".field").each(function () {
+          $(this).removeClass('active');
+        });
+        $('#game-modal .modal-body .modal-player').each(function () {
+          $(this).css('display', 'none');
+        });
+        $('.player').each(function () {
+          $(this).css('display', 'none');
+        });
+
+        $('#game-modal .modal-title').text("Welcome");
+        $('#game-modal .modal-body .modal-player.player-' + data.player + '.image-' + data.variant).css('display', 'block');
+        if (data.turn) {
+          $('#game-modal .modal-body p').text("It's your turn");
+        } else {
+          $('#game-modal .modal-body p').text("Wait for other player to make a move");
+        }
+        $('#game-modal').modal('show');
+        setTimeout(function () {
+          $('#game-modal .modal-body .modal-player').each(function () {
+            $(this).css('display', 'none');
+          });
+          $('#game-modal').modal('hide');
+        }, 3000);
+      });
+      socket.on('move', function (data) {
+        $('#' + data.move + ' .player.player-' + data.player + '.image-' + data.variant).css('display', 'block');
+        $('#' + data.move).addClass('active');
+      });
+      socket.on('wonGame', function (data) {
+        $('#game-modal .modal-body .modal-player').each(function () {
+          $(this).css('display', 'none');
+        });
+
+        if (data.won) {
+          $('#game-modal .modal-body .modal-player.player-' + data.player + '.image-won').css('display', 'block');
+          $('#game-modal .modal-title').text("Won");
+          $('#game-modal .modal-body p').text("Congratulations");
+        } else {
+          $('#game-modal .modal-body .modal-player.player-' + data.player + '.image-lost').css('display', 'block');
+          $('#game-modal .modal-title').text("Lost");
+          $('#game-modal .modal-body p').text("Unfortunately the other player won.");
+        }
+        setTimeout(function () {
+          $('#game-modal').modal('show');
+        }, 1000);
+      });
+      socket.on('tieGame', function () {
+        $('#game-modal .modal-body .modal-player').each(function () {
+          $(this).css('display', 'none');
+        });
+        $('#game-modal .modal-title').text("Tie");
+        $('#game-modal .modal-body p').text("We got a tie.");
+        setTimeout(function () {
+          $('#game-modal').modal('show');
+        }, 1000);
+      });
+      socket.on('teamPlayerLeft', function (data) {
+        $('#game-modal .modal-body .modal-player').each(function () {
+          $(this).css('display', 'none');
+        });
+        $('#game-modal .modal-body .modal-player.player-' + data.player + '.image-' + data.variant).css('display', 'block');
+        $('#game-modal .modal-title').text("Left");
+        $('#game-modal .modal-body p').text("Unfortunately the other player left.");
+        setTimeout(function () {
+          $('#game-modal').modal('show');
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+
+</html>

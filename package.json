@@ -1,0 +1,26 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luftnomade/tic-tac-toe.git"
+  },
+  "description": "minigame tic tac toe realized with socket.io",
+  "keywords": ["role based multiplayer game", "socket.io", "browser game"],
+  "author": "Christian Wolf",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "lodash": "^4.17.4",
+    "pino": "^4.10.3",
+    "rc": "^1.2.5",
+    "socket.io": "^1.7.3"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  }
+}
